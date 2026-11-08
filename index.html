@@ -1,10 +1,55 @@
-<div class="video-container">
-    <!-- Встраиваем плеер KinoDivBox. Он будет работать на вашем сайте -->
-    <iframe src="https://kinodivbox.github.io/iframe?id=535341" 
-            width="100%" 
-            height="500" 
-            frameborder="0" 
-            allowfullscreen 
-            loading="lazy">
-    </iframe>
-</div>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой Эмбед Плеер</title>
+    <style>
+        html, body {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: #000; overflow: hidden;
+        }
+        iframe {
+            width: 100%; height: 100%; border: none;
+        }
+        .error-msg {
+            color: #fff; font-family: sans-serif; text-align: center; margin-top: 20%;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="player-root"></div>
+
+    <script>
+        // 1. Функция для получения параметров из ссылки (например, ?id=535341)
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // 2. Получаем ID фильма
+        const kinopoiskId = getQueryParam('id');
+        const container = document.getElementById('player-root');
+
+        if (kinopoiskId) {
+            // Если ID передан в ссылку, генерируем фрейм плеера.
+            // Вместо kinodivbox здесь используется один из его стабильных бэкендов напрямую.
+            container.innerHTML = `
+                <iframe src="https://kinobox.tv{kinopoiskId}" 
+                        allowfullscreen>
+                </iframe>
+            `;
+        } else {
+            // Если в ссылке нет ?id=...
+            container.innerHTML = `
+                <div class="error-msg">
+                    <h2>Ошибка: Не указан ID фильма!</h2>
+                    <p>Используйте ссылку в формате: <b>ВашСайт.ru/?id=ID_ФИЛЬМА</b></p>
+                </div>
+            `;
+        }
+    </script>
+
+</body>
+</html>
