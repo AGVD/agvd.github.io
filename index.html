@@ -3,27 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой Плеер</title>
-    <!-- Обновленный рабочий адрес скрипта -->
-    <script src="https://kinobox.tv/kinobox.js"></script>
+    <title>Мой Кинотеатр (Kodik & HDVB)</title>
     <style>
-        body { background-color: #141414; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
-        #player { max-width: 850px; height: 480px; margin: 30px auto; background: #000; border-radius: 12px; border: 1px solid #333; }
+        body { background-color: #111; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
+        .buttons { margin-bottom: 20px; }
+        button { background: #333; color: #fff; border: 1px solid #555; padding: 10px 20px; cursor: pointer; border-radius: 5px; font-size: 16px; margin: 0 5px; }
+        button:hover { background: #555; }
+        #player-container { max-width: 800px; height: 450px; margin: 0 auto; background: #000; border-radius: 8px; overflow: hidden; }
+        iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
 <body>
 
-    <h2>Личный онлайн-кинотеатр</h2>
-    <div id="player"></div>
+    <h1>Онлайн Плеер (как на Lordfilm)</h1>
+    
+    <div class="buttons">
+        <button onclick="switchPlayer('kodik')">Плеер 1 (Kodik)</button>
+        <button onclick="switchPlayer('hdvb')">Плеер 2 (HDVB)</button>
+    </div>
+
+    <div id="player-container"></div>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const kpId = urlParams.get('kp') || '251568'; // По умолчанию Дневник Памяти
+        const kpId = urlParams.get('kp') || '251568'; // По умолчанию "Дневник памяти"
+        
+        // Токен для Kodik (публичный, используется на большинстве сайтов)
+        const kodikToken = '04941a9a3ba0ad31c013c7b541e73b93'; 
 
-        // Инициализация через стандартный вызов kinobox
-        kinobox('#player', {
-            search: { kinopoisk: kpId }
-        });
+        function switchPlayer(type) {
+            const container = document.getElementById('player-container');
+            if (type === 'kodik') {
+                // Подключение плеера Kodik
+                container.innerHTML = `<iframe src="https://kodik.info{kpId}?token=${kodikToken}" allowfullscreen></iframe>`;
+            } else if (type === 'hdvb') {
+                // Подключение плеера HDVB
+                container.innerHTML = `<iframe src="https://bhcesh.me{kpId}" allowfullscreen></iframe>`;
+            }
+        }
+
+        // Запускаем первый плеер при загрузке страницы
+        switchPlayer('kodik');
     </script>
 
 </body>
