@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Торрент Плеер на GitHub Pages</title>
     
-    <!-- Подключаем официальный Webtor Embed SDK -->
-    <script src="https://jsdelivr.net" charset="utf-8"></script>
-
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,15 +24,13 @@
             color: #aaaaaa;
             margin-bottom: 20px;
         }
-        /* Контейнер для адаптивности плеера */
-        .player-container {
+        /* Стилизация контейнера плеера */
+        .video-wrapper {
             width: 100%;
             max-width: 800px;
-            height: 450px;
-            background-color: #000000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
@@ -44,25 +39,20 @@
     <h1>Онлайн Торрент Стриминг</h1>
     <p>Видео воспроизводится напрямую из торрента без установки клиента</p>
 
-    <!-- Контейнер, куда Webtor встроит плеер -->
-    <div id="player" class="player-container"></div>
+    <div class="video-wrapper">
+        <!-- 
+          Тег <video> с атрибутом controls и ссылкой в src.
+          SDK автоматически превратит его в плеер Webtor.
+        -->
+        <video id="my-player" 
+               controls 
+               width="100%" 
+               src="magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel">
+        </video>
+    </div>
 
-    <script>
-        // Инициализация Webtor SDK
-        window.webtor = window.webtor || [];
-        window.webtor.push({
-            id: 'player', // ID контейнера выше
-            // Вставьте сюда вашу magnet-ссылку:
-            magnet: 'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel',
-            theme: 'dark', // Тема оформления плеера
-            onReady: function(e) {
-                console.log('Плеер Webtor успешно запущен:', e);
-            },
-            onError: function(e) {
-                console.error('Ошибка инициализации Webtor:', e);
-            }
-        });
-    </script>
+    <!-- Подключаем официальный скрипт из репозитория embed-sdk-js -->
+    <script src="https://jsdelivr.net" charset="utf-8" async></script>
 
 </body>
 </html>
