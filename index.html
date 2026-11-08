@@ -5,16 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мой Эмбед Плеер</title>
     <style>
-        /* Исправлено: теперь страница занимает ровно 100% экрана, а не растянута в 5 раз */
+        /* Устанавливаем ровно 100% экрана, чтобы плеер не ломал верстку */
         html, body {
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            background-color: #000; overflow: hidden;
+            margin: 0; 
+            padding: 0; 
+            width: 100%; 
+            height: 100%;
+            background-color: #000; 
+            overflow: hidden;
         }
         iframe {
-            width: 100%; height: 100%; border: none;
+            width: 100%; 
+            height: 100%; 
+            border: none;
         }
         .error-msg {
-            color: #fff; font-family: sans-serif; text-align: center; margin-top: 20%;
+            color: #fff; 
+            font-family: sans-serif; 
+            text-align: center; 
+            margin-top: 20%;
         }
     </style>
 </head>
@@ -23,31 +32,23 @@
     <div id="player-root"></div>
 
     <script>
-        // 1. Функция для получения параметров из ссылки (например, ?id=535341)
+        // 1. Считываем "id" из вашей адресной строки
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
         }
 
-        // 2. Получаем ID фильма
+        // 2. Записываем полученный ID в переменную
         const kinopoiskId = getQueryParam('id');
         const container = document.getElementById('player-root');
 
         if (kinopoiskId) {
-            // Исправлено: добавлена конструкция ${kinopoiskId} для автоматической передачи ID фильма на сервер
-            container.innerHTML = `
-                <iframe src="https://kinodivbox.github.io/?id=" 
-                        allowfullscreen>
-                </iframe>
-            `;
+            // Классическая склейка строк через плюс (+).
+            // Браузер возьмет ваш ID и автоматически подставит его в плеер KinoDivBox
+            container.innerHTML = '<iframe src="https://kinodivbox.github.io/iframe?id=' + kinopoiskId + '" allowfullscreen></iframe>';
         } else {
-            // Если в ссылке нет ?id=...
-            container.innerHTML = `
-                <div class="error-msg">
-                    <h2>Ошибка: Не указан ID фильма!</h2>
-                    <p>Используйте ссылку в формате: <b>agvd.github.io/?id=</b></p>
-                </div>
-            `;
+            // Если ввели просто agvd.github.io без параметров
+            container.innerHTML = '<div class="error-msg"><h2>Ошибка: Не указан ID фильма!</h2><p>Используйте ссылку в формате: <b>agvd.github.io/?id=258687</b></p></div>';
         }
     </script>
 
