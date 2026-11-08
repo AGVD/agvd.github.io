@@ -3,38 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой Личный Кинотеатр</title>
-    <!-- Подключаем стили и скрипт агрегатора Kinobox -->
-    <script src="https://kinobox.tv"></script>
+    <title>Мой Плеер</title>
+    <!-- Обновленный рабочий адрес скрипта -->
+    <script src="https://kinobox.tv/kinobox.js"></script>
     <style>
-        body { background-color: #111; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
-        #player { max-width: 800px; height: 450px; margin: 20px auto; background: #000; border-radius: 8px; overflow: hidden; }
+        body { background-color: #141414; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
+        #player { max-width: 850px; height: 480px; margin: 30px auto; background: #000; border-radius: 12px; border: 1px solid #333; }
     </style>
 </head>
 <body>
 
-    <h1>Онлайн Плеер</h1>
-    
-    <!-- Контейнер, куда скрипт вставит плеер -->
+    <h2>Личный онлайн-кинотеатр</h2>
     <div id="player"></div>
 
     <script>
-        // Получаем ID фильма из адреса страницы (например: ://mysite.com)
         const urlParams = new URLSearchParams(window.location.search);
-        const kpId = urlParams.get('kp') || '251568'; // Если ID не задан, включится "Дневник памяти"
+        const kpId = urlParams.get('kp') || '251568'; // По умолчанию Дневник Памяти
 
-        // Инициализируем плеер и подключаем балансеры
-        kinoBox('#player', {
-            search: { kinopoisk: kpId },
-            players: {
-                // Здесь можно включить или выключить нужные балансеры (true / false)
-                alloha: true,
-                videocdn: true,
-                collaps: true,
-                cdnmovies: true,
-                kodik: true,
-                bazon: false
-            }
+        // Инициализация через стандартный вызов kinobox
+        kinobox('#player', {
+            search: { kinopoisk: kpId }
         });
     </script>
 
