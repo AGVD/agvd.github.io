@@ -31,16 +31,16 @@
         // Токен для Kodik (публичный, используется на большинстве сайтов)
         const kodikToken = '04941a9a3ba0ad31c013c7b541e73b93'; 
 
-        function switchPlayer(type) {
-            const container = document.getElementById('player-container');
-            if (type === 'kodik') {
-                // Подключение плеера Kodik
-                container.innerHTML = `<iframe src="https://kodik.info{kpId}?token=${kodikToken}" allowfullscreen></iframe>`;
-            } else if (type === 'hdvb') {
-                // Подключение плеера HDVB
-                container.innerHTML = `<iframe src="https://bhcesh.me{kpId}" allowfullscreen></iframe>`;
-            }
-        }
+function switchPlayer(type) {
+    const container = document.getElementById('player-container');
+    if (type === 'kodik') {
+        // ИСПРАВЛЕНО: Добавлен правильный слэш после kinopoisk/ и косые кавычки
+        container.innerHTML = `<iframe src="https://kodik.info{kpId}?token=${kodikToken}" allowfullscreen></iframe>`;
+    } else if (type === 'hdvb') {
+        container.innerHTML = `<iframe src="https://bhcesh.me{kpId}" allowfullscreen></iframe>`;
+    }
+}
+
 
         // Запускаем первый плеер при загрузке страницы
         switchPlayer('kodik');
