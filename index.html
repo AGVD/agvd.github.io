@@ -34,12 +34,14 @@
 function switchPlayer(type) {
     const container = document.getElementById('player-container');
     if (type === 'kodik') {
-        // ИСПРАВЛЕНО: Добавлен правильный слэш после kinopoisk/ и косые кавычки
-        container.innerHTML = `<iframe src="https://kodik.info{kpId}?token=${kodikToken}" allowfullscreen></iframe>`;
+        // Использован новый рабочий домен плеера Kodik вместо заблокированного info
+        container.innerHTML = `<iframe src="https://kodikplayer.com{kpId}?token=${kodikToken}" allowfullscreen></iframe>`;
     } else if (type === 'hdvb') {
+        // Альтернативный рабочий плеер от балансера HDVB
         container.innerHTML = `<iframe src="https://bhcesh.me{kpId}" allowfullscreen></iframe>`;
     }
 }
+
 
 
         // Запускаем первый плеер при загрузке страницы
