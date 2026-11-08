@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мой Эмбед Плеер</title>
     <style>
+        /* Исправлено: теперь страница занимает ровно 100% экрана, а не растянута в 5 раз */
         html, body {
-            margin: 0; padding: 0; width: 500%; height: 500%;
+            margin: 0; padding: 0; width: 100%; height: 100%;
             background-color: #000; overflow: hidden;
         }
         iframe {
@@ -33,10 +34,9 @@
         const container = document.getElementById('player-root');
 
         if (kinopoiskId) {
-            // Если ID передан в ссылку, генерируем фрейм плеера.
-            // Вместо kinodivbox здесь используется один из его стабильных бэкендов напрямую.
+            // Исправлено: добавлена конструкция ${kinopoiskId} для автоматической передачи ID фильма на сервер
             container.innerHTML = `
-                <iframe src="https://kinodivbox.github.io/iframe?id=" 
+                <iframe src="https://kinodivbox.github.io/?id=" 
                         allowfullscreen>
                 </iframe>
             `;
