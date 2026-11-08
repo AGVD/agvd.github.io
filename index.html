@@ -1,38 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой Личный Кинотеатр</title>
+    <!-- Подключаем стили и скрипт агрегатора Kinobox -->
+    <script src="https://kinobox.tv"></script>
+    <style>
+        body { background-color: #111; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
+        #player { max-width: 800px; height: 450px; margin: 20px auto; background: #000; border-radius: 8px; overflow: hidden; }
+    </style>
+</head>
 <body>
 
+    <h1>Онлайн Плеер</h1>
+    
+    <!-- Контейнер, куда скрипт вставит плеер -->
+    <div id="player"></div>
 
+    <script>
+        // Получаем ID фильма из адреса страницы (например: ://mysite.com)
+        const urlParams = new URLSearchParams(window.location.search);
+        const kpId = urlParams.get('kp') || '251568'; // Если ID не задан, включится "Дневник памяти"
 
-<input type="text" value="b28db77c5084da7993395d77df96c30bb134f0a9" id="myInput">
-<button onclick="myFunction()">Copy text</button>  ContID Mathfot1hd
-
-<script>
-function myFunction() {
-  // Get the text field
-  var copyText = document.getElementById("myInput");
-
-  // Select the text field
-  copyText.select();
-  copyText.setSelectionRange(0, 99999); // For mobile devices
-
-  // Copy the text inside the text field
-  navigator.clipboard.writeText(copyText.value);
-  
-  // Alert the copied text
-  alert("Copied the text: " + copyText.value);
-}
-</script>
+        // Инициализируем плеер и подключаем балансеры
+        kinoBox('#player', {
+            search: { kinopoisk: kpId },
+            players: {
+                // Здесь можно включить или выключить нужные балансеры (true / false)
+                alloha: true,
+                videocdn: true,
+                collaps: true,
+                cdnmovies: true,
+                kodik: true,
+                bazon: false
+            }
+        });
+    </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
