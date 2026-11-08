@@ -1,22 +1,10 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Мой Кинотеатр</title>
-    <style>
-        body { background-color: #111; color: #fff; font-family: sans-serif; text-align: center; }
-        .player-container { max-width: 800px; margin: 50px auto; }
-        iframe { width: 100%; height: 450px; border: none; background: #000; }
-    </style>
-</head>
-<body>
-
-    <h1>Смотреть фильм онлайн</h1>
-    
-    <div class="player-container">
-        <!-- Пример интеграции через iframe (ссылку нужно брать из открытых баз) -->
-        <iframe src="https://vidsrc.to" allowfullscreen></iframe>
-    </div>
-
-</body>
-</html>
+<div class="video-container">
+    <!-- Встраиваем плеер KinoDivBox. Он будет работать на вашем сайте -->
+    <iframe src="https://kinodivbox.github.io/iframe?id=535341" 
+            width="100%" 
+            height="500" 
+            frameborder="0" 
+            allowfullscreen 
+            loading="lazy">
+    </iframe>
+</div>
