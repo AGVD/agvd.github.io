@@ -36,7 +36,7 @@
             // Если ID передан в ссылку, генерируем фрейм плеера.
             // Вместо kinodivbox здесь используется один из его стабильных бэкендов напрямую.
             container.innerHTML = `
-                <iframe src="https://kinodivbox.github.io/iframe?id=535341" 
+                <iframe src="https://kinodivbox.github.io/iframe?id=" 
                         allowfullscreen>
                 </iframe>
             `;
@@ -45,7 +45,7 @@
             container.innerHTML = `
                 <div class="error-msg">
                     <h2>Ошибка: Не указан ID фильма!</h2>
-                    <p>Используйте ссылку в формате: <b>agvd.github.io/?id=535341</b></p>
+                    <p>Используйте ссылку в формате: <b>agvd.github.io/?id=</b></p>
                 </div>
             `;
         }
