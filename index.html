@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <center style="background-color: #0b111e; color: white;">KinoDivBox Mirror</center>
+    
+    <!-- Шапка с полем ввода и кнопкой вместо старого текста -->
+    <div style="background-color: #0b111e; color: white; padding: 10px; text-align: center; font-family: sans-serif;">
+        <span style="margin-right: 10px; font-weight: bold;">KinoDivBox:</span>
+        <input type="number" id="idInput" placeholder="Введите ID фильма" style="padding: 5px; border-radius: 4px; border: 1px solid #334155; background-color: #1e293b; color: white; width: 140px;">
+        <button onclick="goToId()" style="padding: 5px 12px; margin-left: 5px; border-radius: 4px; border: none; background-color: #3b82f6; color: white; cursor: pointer; font-weight: bold;">Открыть</button>
+    </div>
+
     <title>Mirror Kinodivbox</title>
     <style>
         /* Устанавливаем ровно 100% экрана, чтобы плеер не ломал верстку */
@@ -14,12 +21,15 @@
             height: 100%;
             background-color: #000; 
             overflow: hidden;
+            display: flex;
+            flex-direction: column; /* Чтобы плеер занимал всё оставшееся место под шапкой */
         }
         
-        /* Главное исправление: заставляем корневой контейнер занимать 100% высоты экрана */
+        /* Главное исправление: заставляем корневой контейнер занимать всё свободное пространство */
         #player-root {
             width: 100%;
-            height: 100%;
+            flex-grow: 1;
+            position: relative;
         }
 
         iframe {
@@ -46,6 +56,23 @@
     <div id="player-root"></div>
 
     <script>
+        // Функция для кнопки — перенаправляет на эту же страницу, но с новым ID
+        function goToId() {
+            const inputVal = document.getElementById('idInput').value;
+            if (inputVal) {
+                window.location.href = window.location.origin + window.location.pathname + "?id=" + inputVal;
+            } else {
+                alert("Пожалуйста, введите ID фильма!");
+            }
+        }
+
+        // Также добавляем возможность нажать Enter внутри поля ввода вместо клика по кнопке
+        document.getElementById('idInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                goToId();
+            }
+        });
+
         // 1. Считываем "id" из вашей адресной строки
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -59,10 +86,12 @@
         if (kinopoiskId) {
             // Классическая склейка строк через плюс (+).
             // Браузер возьмет ваш ID и автоматически подставит его в плеер KinoDivBox
-            container.innerHTML = '<iframe src="https://kinodivbox.github.io/iframe?id=' + kinopoiskId + '" allowfullscreen></iframe>';
+            container.innerHTML = '<iframe src="https://github.io' + kinopoiskId + '" allowfullscreen></iframe>';
+            // Сразу подставляем текущий ID в инпут для наглядности
+            document.getElementById('idInput').value = kinopoiskId;
         } else {
             // Если ввели просто agvd.github.io без параметров
-            container.innerHTML = '<div class="error-msg"><h2>Ошибка: Не указан ID фильма!</h2><p>Используйте ссылку в формате: <b>agvd.github.io/?id=258687</b></p></div>';
+            container.innerHTML = '<div class="error-msg"><h2>Ошибка: Не указан ID фильма!</h2><p>Введите Кинопоиск ID в поле выше или используйте ссылку в формате: <b>agvd.github.io/?id=258687</b></p></div>';
         }
     </script>
 
