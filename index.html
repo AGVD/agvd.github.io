@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -6,7 +7,6 @@
     <center style="background-color: #0b111e; color: white;">KinoDivBox Mirror</center>
     <title>Mirror Kinodivbox</title>
     <style>
-        
         html, body {
             margin: 0; 
             padding: 0; 
@@ -15,7 +15,6 @@
             background-color: #000; 
             overflow: hidden;
         }
-        
         
         #player-root {
             width: 100%;
@@ -26,7 +25,7 @@
             width: 100%; 
             height: 100%; 
             border: none;
-            display: block; /
+            display: block; 
         }
         
         .error-msg {
@@ -38,33 +37,104 @@
             left: 50%;
             transform: translate(-50%, -50%);
             margin: 0;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .input-container {
+            margin-top: 20px;
+        }
+
+        .movie-id-input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background-color: #111;
+            color: #fff;
+            width: 60%;
+            box-sizing: border-box;
+        }
+
+        .submit-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #0b111e;
+            color: white;
+            border: 1px solid #1f2d44;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #1f2d44;
+        }
+
+        /* Класс для скрытия элементов */
+        .hidden {
+            display: none !important;
         }
     </style>
 </head>
 <body>
 
+    <!-- Контейнер для плеера -->
     <div id="player-root"></div>
 
-    <script>
+    <!-- Форма ввода, которая видна только если ID не указан -->
+    <div id="form-root" class="error-msg hidden">
+        <h2>Ошибка: Не указан ID фильма!</h2>
+        <p>ID фильма можно узнать на <a href="https://kinopoisk.ru" target="_blank" style="color: #4a90e2;">kinopoisk.ru</a></p>
+        <p>Используйте ссылку в формате: <b>https://github.io</b></p>
         
+        <div class="input-container">
+            <input type="text" id="movieIdInput" class="movie-id-input" placeholder="Введите ID фильма (например, 435)">
+            <button id="submitBtn" class="submit-btn">Смотреть</button>
+        </div>
+    </div>
+
+    <script>
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
         }
 
-       
         const kinopoiskId = getQueryParam('id');
-        const container = document.getElementById('player-root');
+        const playerContainer = document.getElementById('player-root');
+        const formContainer = document.getElementById('form-root');
+        const idInput = document.getElementById('movieIdInput');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Функция перехода по ссылке с ID
+        function watchMovie() {
+            const idValue = idInput.value.trim();
+            if (idValue) {
+                window.location.search = '?id=' + idValue;
+            } else {
+                alert('Пожалуйста, введите ID фильма!');
+            }
+        }
 
         if (kinopoiskId) {
-            
+            // Если ID есть, вставляем только iframe
             container.innerHTML = '<iframe src="https://kinodivbox.github.io/iframe?id=' + kinopoiskId + '" allowfullscreen></iframe>';
         } else {
-           
-            container.innerHTML = '<div class="error-msg"><h2>Ошибка: Не указан ID фильма! ид  фильма можно узнать на https://kinopoisk.ru</h2><p>Используйте ссылку в формате: <b>https://agvd.github.io/?id=435</b></p></div>';
+            // Если ID нет, показываем блок с кнопкой и инпутом
+            formContainer.classList.remove('hidden');
 
+            // Навешиваем клик на кнопку
+            submitBtn.addEventListener('click', watchMovie);
+
+            // Навешиваем отправку по кнопке Enter в инпуте
+            idInput.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    watchMovie();
+                }
+            });
         }
     </script>
 
 </body>
 </html>
+
