@@ -86,7 +86,7 @@
         if (kinopoiskId) {
             // Классическая склейка строк через плюс (+).
             // Браузер возьмет ваш ID и автоматически подставит его в плеер KinoDivBox
-            container.innerHTML = '<iframe src="https://github.io' + kinopoiskId + '" allowfullscreen></iframe>';
+            container.innerHTML = '<iframe src="https://kinodivbox.github.io/iframe?id=' + kinopoiskId + '" allowfullscreen></iframe>';
             // Сразу подставляем текущий ID в инпут для наглядности
             document.getElementById('idInput').value = kinopoiskId;
         } else {
