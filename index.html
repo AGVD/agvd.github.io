@@ -3,18 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <center style="background-color: #0b111e; color: white;">KinoDivBox Mirror</center>
-    
-
-    <div style="background-color: #0b111e; color: white; padding: 10px; text-align: center; font-family: sans-serif;">
-        <span style="margin-right: 10px; font-weight: bold;">Movie ID:</span>
-        <input type="number" id="idInput" placeholder="Введите ID фильма" style="padding: 5px; border-radius: 4px; border: 1px solid #334155; background-color: #1e293b; color: white; width: 140px;">
-        <button onclick="goToId()" style="padding: 5px 12px; margin-left: 5px; border-radius: 4px; border: none; background-color: #3b82f6; color: white; cursor: pointer; font-weight: bold;">Открыть</button>
-    </div>
-    
     <title>Mirror Kinodivbox</title>
     <style>
-
         html, body {
             margin: 0; 
             padding: 0; 
@@ -25,19 +15,41 @@
             display: flex;
             flex-direction: column; 
         }
-        
 
+        /* Шапка сайта */
+        .header-panel {
+            background-color: #0b111e; 
+            color: white; 
+            padding: 10px; 
+            text-align: center; 
+            font-family: sans-serif;
+        }
+        .mirror-title {
+            background-color: #0b111e; 
+            color: white;
+            text-align: center;
+            font-family: sans-serif;
+            margin: 0;
+            padding-top: 5px;
+        }
+
+        /* Контейнер плеера, который скрывает всё лишнее по краям */
         #player-root {
             width: 100%;
             flex-grow: 1;
             position: relative;
+            overflow: hidden; /* Обрезает нижний водяной знак */
         }
 
+        /* Растягиваем плеер чуть ниже видимой области, пряча нижнюю полосу */
         iframe {
             width: 100%; 
-            height: 100%; 
+            height: 104%; /* Делаем плеер чуть выше, чтобы спрятать копирайт */
             border: none;
             display: block; 
+            position: absolute;
+            top: 0;
+            left: 0;
         }
         
         .error-msg {
@@ -54,10 +66,16 @@
 </head>
 <body>
 
+    <h3 class="mirror-title">KinoDivBox Mirror</h3>
+    <div class="header-panel">
+        <span style="margin-right: 10px; font-weight: bold;">Movie ID:</span>
+        <input type="number" id="idInput" placeholder="Введите ID фильма" style="padding: 5px; border-radius: 4px; border: 1px solid #334155; background-color: #1e293b; color: white; width: 140px;">
+        <button onclick="goToId()" style="padding: 5px 12px; margin-left: 5px; border-radius: 4px; border: none; background-color: #3b82f6; color: white; cursor: pointer; font-weight: bold;">Открыть</button>
+    </div>
+
     <div id="player-root"></div>
 
     <script>
-
         function goToId() {
             const inputVal = document.getElementById('idInput').value;
             if (inputVal) {
@@ -67,31 +85,24 @@
             }
         }
 
-
         document.getElementById('idInput').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 goToId();
             }
         });
 
-
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
         }
 
-
         const kinopoiskId = getQueryParam('id');
         const container = document.getElementById('player-root');
 
         if (kinopoiskId) {
-
-
             container.innerHTML = '<iframe src="https://kinodivbox.github.io/iframe?id=' + kinopoiskId + '" allowfullscreen></iframe>';
-
             document.getElementById('idInput').value = kinopoiskId;
         } else {
-
             container.innerHTML = '<div class="error-msg"><h2>Ошибка: Не указан ID фильма!</h2><p>Введите Кинопоиск ID в поле выше или используйте ссылку в формате: <b>agvd.github.io/?id=258687</b></p></div>';
         }
     </script>
