@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -33,23 +34,24 @@
             padding-top: 5px;
         }
 
-        /* Контейнер плеера, который скрывает всё лишнее по краям */
+        /* Контейнер-маска плеера */
         #player-root {
             width: 100%;
             flex-grow: 1;
             position: relative;
-            overflow: hidden; /* Обрезает нижний водяной знак */
+            overflow: hidden; /* Обрезает всё, что выходит за рамки контейнера */
         }
 
-        /* Растягиваем плеер чуть ниже видимой области, пряча нижнюю полосу */
+        /* Идеальное скрытие нижней плашки при любых размерах окна */
         iframe {
-            width: 100%; 
-            height: 104%; /* Делаем плеер чуть выше, чтобы спрятать копирайт */
-            border: none;
-            display: block; 
             position: absolute;
             top: 0;
             left: 0;
+            width: 100%; 
+            /* Высчитываем высоту: 100% от контейнера + 25px, которые уйдут вниз за экран */
+            height: calc(100% + 25px); 
+            border: none;
+            display: block; 
         }
         
         .error-msg {
@@ -100,7 +102,7 @@
         const container = document.getElementById('player-root');
 
         if (kinopoiskId) {
-            container.innerHTML = '<iframe src="https://kinodivbox.github.io/iframe?id=' + kinopoiskId + '" allowfullscreen></iframe>';
+             container.innerHTML = '<iframe src="https://kinodivbox.github.io/iframe?id=' + kinopoiskId + '" allowfullscreen></iframe>';
             document.getElementById('idInput').value = kinopoiskId;
         } else {
             container.innerHTML = '<div class="error-msg"><h2>Ошибка: Не указан ID фильма!</h2><p>Введите Кинопоиск ID в поле выше или используйте ссылку в формате: <b>agvd.github.io/?id=258687</b></p></div>';
@@ -109,3 +111,4 @@
 
 </body>
 </html>
+
