@@ -34,21 +34,21 @@
             padding-top: 5px;
         }
 
-        /* Контейнер-маска плеера */
+
         #player-root {
             width: 100%;
             flex-grow: 1;
             position: relative;
-            overflow: hidden; /* Обрезает всё, что выходит за рамки контейнера */
+            overflow: hidden; 
         }
 
-        /* Идеальное скрытие нижней плашки при любых размерах окна */
+
         iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%; 
-            /* Высчитываем высоту: 100% от контейнера + 25px, которые уйдут вниз за экран */
+
             height: calc(100% + 25px); 
             border: none;
             display: block; 
