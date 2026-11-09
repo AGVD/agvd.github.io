@@ -6,7 +6,7 @@
     <center style="background-color: #0b111e; color: white;">KinoDivBox Mirror</center>
     <title>Mirror Kinodivbox</title>
     <style>
-        /* Устанавливаем ровно 100% экрана, чтобы плеер не ломал верстку */
+        
         html, body {
             margin: 0; 
             padding: 0; 
@@ -16,7 +16,7 @@
             overflow: hidden;
         }
         
-        /* Главное исправление: заставляем корневой контейнер занимать 100% высоты экрана */
+        
         #player-root {
             width: 100%;
             height: 100%;
@@ -26,7 +26,7 @@
             width: 100%; 
             height: 100%; 
             border: none;
-            display: block; /* Убирает лишние микро-отступы снизу фрейма */
+            display: block; /
         }
         
         .error-msg {
@@ -46,23 +46,23 @@
     <div id="player-root"></div>
 
     <script>
-        // 1. Считываем "id" из вашей адресной строки
+        
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
         }
 
-        // 2. Записываем полученный ID в переменную
+       
         const kinopoiskId = getQueryParam('id');
         const container = document.getElementById('player-root');
 
         if (kinopoiskId) {
-            // Классическая склейка строк через плюс (+).
-            // Браузер возьмет ваш ID и автоматически подставит его в плеер KinoDivBox
+            
             container.innerHTML = '<iframe src="https://kinodivbox.github.io/iframe?id=' + kinopoiskId + '" allowfullscreen></iframe>';
         } else {
-            // Если ввели просто agvd.github.io без параметров
-            container.innerHTML = '<div class="error-msg"><h2>Ошибка: Не указан ID фильма!</h2><p>Используйте ссылку в формате: <b>agvd.github.io/?id=258687</b></p></div>';
+           
+            container.innerHTML = '<div class="error-msg"><h2>Ошибка: Не указан ID фильма! ид  фильма можно узнать на https://kinopoisk.ru</h2><p>Используйте ссылку в формате: <b>https://agvd.github.io/?id=435</b></p></div>';
+
         }
     </script>
 
